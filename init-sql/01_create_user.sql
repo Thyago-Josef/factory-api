@@ -1,0 +1,17 @@
+-- -- Habilita scripts de criação de usuário em containers
+-- ALTER SESSION SET "_ORACLE_SCRIPT"=true;
+--
+-- -- Cria o usuário apenas se ele não existir (evita erro no log)
+-- DECLARE
+-- v_count NUMBER;
+-- BEGIN
+-- SELECT count(*) INTO v_count FROM all_users WHERE username = 'APP_QUARKUS';
+-- IF v_count = 0 THEN
+--     EXECUTE IMMEDIATE 'CREATE USER APP_QUARKUS IDENTIFIED BY quarkus';
+-- END IF;
+-- END;
+-- /
+--
+-- -- Permissões essenciais para o Flyway e Quarkus
+-- GRANT CONNECT, RESOURCE, DBA, CREATE SESSION TO APP_QUARKUS;
+-- ALTER USER APP_QUARKUS QUOTA UNLIMITED ON USERS;

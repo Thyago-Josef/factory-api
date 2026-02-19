@@ -1,0 +1,17 @@
+services:
+  oracle-db:
+    image: gvenzl/oracle-free:latest
+    container_name: oracle-db
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: quarkus
+      APP_USER: APP_QUARKUS
+      APP_USER_PASSWORD: quarkus
+    volumes:
+          - ./init-sql:/container-entrypoint-initdb.d # <--- ADICIONE ESTA LINHA
+    healthcheck:
+      test: ["CMD-SHELL", "sqlplus -s sys/quarkus@//localhost:1521/FREEPDB1 as sysdba <<<'exit;'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
