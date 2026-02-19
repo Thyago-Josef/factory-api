@@ -55,8 +55,8 @@ Certifique-se de ter instalado:
 
 #### 1. Clone o Repositório
 ```bash
-git clone https://github.com/seu-usuario/factory-manager.git
-cd factory-manager/backend
+git clone https://github.com/Thyago-Josef/factory-api.git
+cd factory-api/
 ```
 
 #### 2. Inicie o Banco de Dados
@@ -87,7 +87,6 @@ Quando ver a mensagem **"DATABASE IS READY TO USE!"**, prossiga para o próximo 
 O servidor estará disponível em:
 - **API REST:** http://localhost:8080
 - **Swagger UI:** http://localhost:8080/q/swagger-ui
-- **Health Check:** http://localhost:8080/q/health
 
 #### 4. (Opcional) Execute o Frontend
 ```bash
@@ -109,17 +108,7 @@ Os testes utilizam **H2 em memória**, portanto **não é necessário** ter o Or
 ./mvnw test
 ```
 
-### Testes com Cobertura (Jacoco)
-```bash
-./mvnw verify
-```
 
-Relatório disponível em: `target/site/jacoco/index.html`
-
-### Modo de Teste Contínuo
-```bash
-./mvnw quarkus:test
-```
 
 ---
 
@@ -186,75 +175,11 @@ docker ps
 
 ---
 
-## 📦 Build para Produção
-
-### JAR Tradicional
-```bash
-./mvnw package
-java -jar target/quarkus-app/quarkus-run.jar
-```
-
-### Uber-JAR (tudo em um arquivo)
-```bash
-./mvnw package -Dquarkus.package.jar.type=uber-jar
-java -jar target/*-runner.jar
-```
-
-### Executável Nativo (GraalVM)
-```bash
-# Com GraalVM instalado
-./mvnw package -Dnative
-
-# Sem GraalVM (usa container)
-./mvnw package -Dnative -Dquarkus.native.container-build=true
-
-# Executar
-./target/appquarkus-1.0.0-SNAPSHOT-runner
-```
-
 ---
 
-## 🔧 Configuração
 
-As configurações estão em `src/main/resources/application.properties`.
 
-### Alterar Porta do Servidor
-```properties
-quarkus.http.port=8081
-```
 
-### Usar PostgreSQL em vez de Oracle
-
-1. Adicione a dependência no `pom.xml`:
-```xml
-<dependency>
-    <groupId>io.quarkus</groupId>
-    <artifactId>quarkus-jdbc-postgresql</artifactId>
-</dependency>
-```
-
-2. Atualize o `application.properties`:
-```properties
-quarkus.datasource.db-kind=postgresql
-quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/factory
-quarkus.datasource.username=postgres
-quarkus.datasource.password=postgres
-```
-
-3. Atualize o `docker-compose.yml`:
-```yaml
-services:
-  postgres-db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_DB: factory
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - "5432:5432"
-```
-
----
 
 ## 🏗️ Estrutura do Projeto
 ```
@@ -271,7 +196,7 @@ backend/
 │   │       └── application.properties
 │   └── test/
 │       └── java/com/factory/
-│           ├── resource/        # Testes de API
+│           ├
 │           └── service/         # Testes de serviço
 ├── docker-compose.yml
 ├── pom.xml
